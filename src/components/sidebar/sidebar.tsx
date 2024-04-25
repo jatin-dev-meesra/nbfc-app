@@ -45,13 +45,13 @@ const Sidebar = () => {
     },
     {
       title: "Generate Lead",
-      href: "/dashboard",
+      href: "/gen_lead",
       icon: "bi bi-file-earmark-plus",
       subMenu: [],
     },
     {
       title: "Cases",
-      href: "/dashboard",
+      href: "/cases",
       icon: "bi bi-file-earmark",
       subMenu: [],
     },
@@ -76,7 +76,7 @@ const Sidebar = () => {
     // },
     {
       title: "Transaction",
-      href: "/dashboard",
+      href: "/transaction",
       icon: "bi bi-hourglass",
       subMenu: [],
     },

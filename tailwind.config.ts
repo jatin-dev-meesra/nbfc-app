@@ -11,7 +11,7 @@ const config: Config = {
       colors: {
         "m-blue": "#00419B",
         "main-background": "#f4f5f7",
-        "m-orange": "#FF5F40",
+        "m-orange": "#FF5500",
         "m-red-shade": "#f1556c",
         "m-secondary-text": "#6d6d6d",
         "m-black": "#2a2a2a",
