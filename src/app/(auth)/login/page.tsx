@@ -27,7 +27,7 @@ const Login = () => {
       return;
     }
 
-    router.push("/partner");
+    router.push("/dashboard");
   };
 
   return (

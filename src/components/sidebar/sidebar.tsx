@@ -40,18 +40,18 @@ const Sidebar = () => {
   const navigation = [
     {
       title: "Dashboard",
-      href: "/partner",
+      href: "/dashboard",
       icon: "bi bi-columns-gap",
     },
     {
       title: "Generate Lead",
-      href: "/partner/generatelead",
+      href: "/dashboard",
       icon: "bi bi-file-earmark-plus",
       subMenu: [],
     },
     {
       title: "Cases",
-      href: "/partner/cases",
+      href: "/dashboard",
       icon: "bi bi-file-earmark",
       subMenu: [],
     },
@@ -76,7 +76,7 @@ const Sidebar = () => {
     // },
     {
       title: "Transaction",
-      href: "/partner/getquote/4",
+      href: "/dashboard",
       icon: "bi bi-hourglass",
       subMenu: [],
     },
