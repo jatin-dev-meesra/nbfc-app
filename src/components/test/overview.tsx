@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import Image from "next/image";
 import { useMemo, type CSSProperties } from "react";
 
 export type OverviewDownloadType = {
@@ -36,12 +37,7 @@ const OverviewDownload: NextPage<OverviewDownloadType> = ({
       className="self-stretch rounded-[16.63px] bg-white-main flex flex-col items-start justify-start pt-[1.937rem] pb-[2rem] pr-[8.125rem] pl-[2.081rem] gap-[0.693rem] text-left text-[1.906rem] text-header-text-color font-header-22 border-[1.4px] border-solid border-silver-100 mq450:pr-[1.25rem] mq450:box-border"
       style={overviewDownloadStyle}
     >
-      <img
-        className="w-[2.081rem] h-[2.081rem] relative overflow-hidden shrink-0"
-        loading="lazy"
-        alt=""
-        src={fileEarmarkArrowUp12}
-      />
+      
       <div
         className="flex flex-col items-start justify-start gap-[0.343rem]"
         style={overviewDownloadDetailStyle}
