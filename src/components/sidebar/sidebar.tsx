@@ -45,7 +45,7 @@ const Sidebar = () => {
     },
     {
       title: "Generate Lead",
-      href: "/gen_lead",
+      href: "/generatelead",
       icon: "bi bi-file-earmark-plus",
       subMenu: [],
     },
