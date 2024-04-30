@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 
-const Calculator = () => {
+const ShowPremiumCalculator = () => {
   const [claculateBtnDisplay, setClaculateBtnDisplay] = useState(true);
-  const [showPremium, setShowPremium] = useState(false);
+  const [showPremium, setShowPremium] = useState(true);
   const [premiumAmount, setPremiumAmount] = useState(20000);
   const [premiumAmountGst, setPremiumAmountGst] = useState(
     (premiumAmount * 18) / 100
@@ -26,7 +26,7 @@ const Calculator = () => {
           <i className="bi bi-calculator pr-4"></i>Premium Calculator
         </h1>
       </div>
-      <div className="py-2">
+      {/* <div className="py-2">
         <label htmlFor="" className=" text-sm text-gray-500">
           Loan Tenure*
         </label>
@@ -101,7 +101,7 @@ const Calculator = () => {
         >
           Calculate
         </button>
-      </div>
+      </div> */}
       <div className={`py-2 ${showPremium ? "block" : "hidden"}`}>
         <p className="text-m-black p-2 flex justify-between items-center border-b-2 border-gray-100">
           <span>Premium Amount</span>
@@ -124,7 +124,7 @@ const Calculator = () => {
             {totalAmount}
           </span>
         </p>
-        <div className="pt-2 flex gap-2 justify-center items-center">
+        {/* <div className="pt-2 flex gap-2 justify-center items-center">
           <button
             className="bg-gray-200 text-center rounded-md text-gray-500 p-2 w-full hover:shadow-xl"
             onClick={() => {
@@ -142,10 +142,10 @@ const Calculator = () => {
           >
             Fill Form
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
 
-export default Calculator;
+export default ShowPremiumCalculator;
