@@ -9,8 +9,13 @@ import React, { useState } from "react";
 import { StepperContext } from "@/context/stepperContext";
 import Calculator from "@/components/calculator/calculator";
 import ShowPremiumCalculator from "@/components/calculator/showPremium";
+import MassuredBanner from "@/components/massured/massuredBanner";
 
 const GenerateLeadPage = () => {
+  const [fillFormClicked, setFillFormClicked] = useState(false);
+  const [calculateClicked, setCalculateClicked] = useState(false);
+  const [premiumAmount, setPremiumAmount] = useState(0);
+
   const [currentStep, setCurrentStep] = useState(1);
   const [userData, setUserData] = useState("");
   const [finalData, setFinalData] = useState([]);
@@ -24,7 +29,15 @@ const GenerateLeadPage = () => {
   const displayStep = (step: any) => {
     switch (step) {
       case 1:
-        return <PersonalDetails />;
+        return (
+          <PersonalDetails
+            calculateClicked={calculateClicked}
+            setCalculateClicked={setCalculateClicked}
+            setPremiumAmount={setPremiumAmount}
+            setFillFormClicked={setFillFormClicked}
+            fillFormClicked={fillFormClicked}
+          />
+        );
       case 2:
         return <MedicalQuestionnaire />;
       case 3:
@@ -74,10 +87,17 @@ const GenerateLeadPage = () => {
             </div>
           </div>
           <div className="w-full lg:w-2/6">
-            {/* <Calculator /> */}
-            <ShowPremiumCalculator />
-            <div className="mt-5 py-5">
-              {currentStep !== steps.length && (
+            <ShowPremiumCalculator
+              calculateClicked={calculateClicked}
+              setCalculateClicked={setCalculateClicked}
+              premiumAmount={premiumAmount}
+              setPremiumAmount={setPremiumAmount}
+            />
+            <div className="mt-3">
+              <MassuredBanner />
+            </div>
+            <div className="mt-5 pb-2">
+              {fillFormClicked && (
                 <StepperController
                   handleClick={handleStepsFlow}
                   currentStep={currentStep}
@@ -88,26 +108,6 @@ const GenerateLeadPage = () => {
           </div>
         </div>
       </section>
-      {/* <CircularProgressBar
-        selectedValue={75}
-        maxValue={100}
-        radius={100}
-        activeStrokeColor="#0f4fff"
-        withGradient
-      /> */}
-
-      {/* <div className="my-4">
-        <StepperBar steps={steps} currentStep={currentStep} />
-      </div> */}
-      {/*  */}
-      {/* <div>
-        <StepperContext.Provider
-          value={{ userData, setUserData, finalData, setFinalData }}
-        >
-          {displayStep(currentStep)}
-        </StepperContext.Provider>
-      </div> */}
-      {/*  */}
     </>
   );
 };

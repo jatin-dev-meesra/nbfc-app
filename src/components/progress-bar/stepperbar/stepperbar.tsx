@@ -70,7 +70,7 @@ const StepperBar = ({ steps, currentStep }: any) => {
             : "flex item-center"
         }
       >
-        <div className="relative flex flex-col items-center text-teal-600">
+        <div className="relative flex flex-col items-center text-gray-400">
           <div
             className={`rounded-full transition duration-500 ease-in-out border-2 border-gray-300 h-8 w-8 flex justify-center items-center py-1 ${
               step.selected
