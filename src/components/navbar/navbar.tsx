@@ -16,6 +16,7 @@ const Navbar = ({ showMobilemenu }: any) => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -40,7 +41,11 @@ const Navbar = ({ showMobilemenu }: any) => {
       <nav className="flex justify-between items-center p-2 px-4 h-16 fixed w-full z-50 bg-white">
         <div className="flex justify-center items-center">
           <div className="pr-8 h-14 flex justify-center items-center">
-            <Image src={LogoLgImg} className="hidden sm:block" alt="logo" />
+            <Image
+              src={LogoLgImg}
+              className="hidden sm:block h-12"
+              alt="logo"
+            />
             <Image
               src={LogoSmImg}
               className=" h-10 w-10 sm:hidden"

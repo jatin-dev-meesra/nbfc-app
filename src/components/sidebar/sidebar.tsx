@@ -88,22 +88,22 @@ const Sidebar = () => {
         <div className="pt-4 text-m-secondary-text">
           <Nav vertical className="sidebarNav">
             {navigation.map((navItem, index) => (
-              <div key={index}>
+              <div key={index} className="pb-1">
                 <NavItem
                   key={index}
-                  className={`sidenav-bg p-2 outline-1 hover:outline-blue-300 rounded-lg hover:text-m-orange ${
-                    pathname == navItem.href ? "text-m-orange" : ""
+                  className={`sidenav-bg p-1 px-3 outline-1 hover:outline-blue-300 rounded-r-lg hover:text-white hover:bg-m-orange ${
+                    pathname == navItem.href ? "text-white bg-m-orange" : ""
                   }`}
                   onClick={() => {
                     toggleSubMenu(index);
                   }}
                 >
                   <Link href={navItem.href}>
-                    <div className="flex items-center w-full">
+                    <div className="flex items-center w-full text-sm">
                       <span>
                         <i className={navItem.icon}></i>
                       </span>
-                      <span className="ms-3 d-inline-block text-md ">
+                      <span className="ms-3 d-inline-block ">
                         {navItem.title}
                       </span>
                       <span className="ml-auto">
