@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "react-circular-progressbar/dist/styles.css";
 // import "react-phone-input-2/lib/style.css";
 
 const inter = Inter({ subsets: ["latin"] });

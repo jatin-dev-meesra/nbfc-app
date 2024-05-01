@@ -8,6 +8,8 @@ const PersonalDetails = ({
   setPremiumAmount,
   fillFormClicked,
   setFillFormClicked,
+  setRadialPercentage,
+  radialPercentage,
 }: any) => {
   const { userData, setUserData }: any = useContext(StepperContext);
   const handleChange = (e: any) => {
@@ -18,10 +20,12 @@ const PersonalDetails = ({
   const handleFillForm = () => {
     setCalculateClicked(false);
     setFillFormClicked(true);
+    setRadialPercentage(40);
   };
   const handleClaculate = () => {
     setCalculateClicked(true);
     setPremiumAmount(20000);
+    setRadialPercentage(20);
   };
   return (
     <div className="bg-white border-2 px-8 py-6 border-solid rounded-lg">

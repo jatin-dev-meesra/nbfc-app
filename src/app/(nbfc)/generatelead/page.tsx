@@ -7,15 +7,16 @@ import StepperController from "@/components/progress-bar/stepperbar/stepperContr
 import StepperBar from "@/components/progress-bar/stepperbar/stepperbar";
 import React, { useState } from "react";
 import { StepperContext } from "@/context/stepperContext";
-import Calculator from "@/components/calculator/calculator";
 import ShowPremiumCalculator from "@/components/calculator/showPremium";
 import MassuredBanner from "@/components/massured/massuredBanner";
+import CircularProgressBarComponent from "@/components/progress-bar/circular_progress_bar/circularprogress";
 
 const GenerateLeadPage = () => {
   const [fillFormClicked, setFillFormClicked] = useState(false);
   const [calculateClicked, setCalculateClicked] = useState(false);
   const [premiumAmount, setPremiumAmount] = useState(0);
 
+  const [radialPercentage, setRadialPercentage] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
   const [userData, setUserData] = useState("");
   const [finalData, setFinalData] = useState([]);
@@ -36,6 +37,8 @@ const GenerateLeadPage = () => {
             setPremiumAmount={setPremiumAmount}
             setFillFormClicked={setFillFormClicked}
             fillFormClicked={fillFormClicked}
+            radialPercentage={radialPercentage}
+            setRadialPercentage={setRadialPercentage}
           />
         );
       case 2:
@@ -66,9 +69,12 @@ const GenerateLeadPage = () => {
           </div>
           <div className="w-full lg:w-2/6 hidden lg:block">
             <div className="flex justify-center items-center h-full w-full pt-5">
-              <button className="bg-white rounded-full border ring-8 ring-m-orange h-14 w-14 opacity-50">
+              {/* <button className="bg-white rounded-full border ring-8 ring-m-orange h-14 w-14 opacity-50">
                 0%
-              </button>
+              </button> */}
+              <div className="h-14 w-14">
+                <CircularProgressBarComponent percentage={radialPercentage} />
+              </div>
             </div>
           </div>
         </div>
