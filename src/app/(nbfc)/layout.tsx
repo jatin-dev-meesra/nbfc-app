@@ -3,7 +3,9 @@ import React, { Suspense } from "react";
 
 import Sidebar from "@/components/sidebar/sidebar";
 import Navbar from "@/components/navbar/navbar";
-import TestModal from "@/components/modals/testModal";
+import PersonalDetailsModal from "@/components/modals/personalDetailsModal";
+import OtpVerificationModal from "@/components/modals/otpVerificationModal";
+import OtpSuccessfullModal from "@/components/modals/otpSuccessfullModal";
 
 export default function PartnerLayout({
   children,
@@ -31,7 +33,9 @@ export default function PartnerLayout({
           <div className="">
             {children}
             <Suspense fallback={<p>Loading......</p>}>
-              <TestModal />
+              <PersonalDetailsModal />
+              <OtpVerificationModal />
+              <OtpSuccessfullModal />
             </Suspense>
           </div>
         </section>

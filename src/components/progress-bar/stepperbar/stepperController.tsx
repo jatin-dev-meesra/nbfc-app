@@ -13,7 +13,9 @@ const StepperController = ({ handleClick, currentStep, steps }: any) => {
           Previous
         </button>
         <button
-          className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm w-full"
+          className={`bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm w-full ${
+            currentStep === steps.length ? "hidden" : ""
+          }`}
           onClick={() => handleClick("next")}
         >
           {currentStep === steps.length ? "Confirm" : "Next"}

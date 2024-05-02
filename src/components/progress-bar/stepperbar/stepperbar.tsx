@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 
-const StepperBar = ({ steps, currentStep }: any) => {
+const StepperBar = ({ steps, currentStep, setRadialPercentage }: any) => {
   interface NewStep {
     description: string;
     completed: Boolean;
@@ -38,13 +38,24 @@ const StepperBar = ({ steps, currentStep }: any) => {
         count++;
       }
     }
-    console.log("newSteps", newSteps);
+    // console.log("newSteps", stepNumber);
 
     return newSteps;
   };
 
   useEffect(() => {
     const stepsState = steps.map((step: string) => {
+      if (currentStep === 1) {
+        setRadialPercentage(20);
+      } else if (currentStep === 2) {
+        setRadialPercentage(40);
+      } else if (currentStep === 3) {
+        setRadialPercentage(60);
+      } else if (currentStep === 4) {
+        setRadialPercentage(80);
+      } else if (currentStep === 5) {
+        setRadialPercentage(100);
+      }
       return Object.assign(
         {},
         {
@@ -58,7 +69,7 @@ const StepperBar = ({ steps, currentStep }: any) => {
     stepRef.current = stepsState;
     const current = updateStep(currentStep - 1, stepRef.current);
     setNewStep(current);
-  }, [steps, currentStep]);
+  }, [steps, currentStep, setRadialPercentage]);
 
   const displayStep = newStep.map((step, index) => {
     return (

@@ -41,7 +41,7 @@ const ShowPremiumCalculator = ({
             {(premiumAmount * 118) / 100}
           </span>
         </p>
-        {calculateClicked && (
+        {/* {calculateClicked && (
           <div className="pt-2 flex gap-2 justify-center items-center">
             <button
               className="bg-gray-100 text-center rounded-md text-gray-400 p-2 hover:shadow-xl"
@@ -52,7 +52,7 @@ const ShowPremiumCalculator = ({
               Re-Evaluate
             </button>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

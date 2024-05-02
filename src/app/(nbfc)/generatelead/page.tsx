@@ -64,7 +64,12 @@ const GenerateLeadPage = () => {
         <div className="flex flex-col lg:flex-row gap-2">
           <div className="w-full h-fit lg:w-4/6">
             <div className="">
-              <StepperBar steps={steps} currentStep={currentStep} />
+              <StepperBar
+                steps={steps}
+                currentStep={currentStep}
+                radialPercentage={radialPercentage}
+                setRadialPercentage={setRadialPercentage}
+              />
             </div>
           </div>
           <div className="w-full lg:w-2/6 hidden lg:block">

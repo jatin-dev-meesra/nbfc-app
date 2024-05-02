@@ -20,7 +20,6 @@ const PersonalDetails = ({
   const handleFillForm = () => {
     setCalculateClicked(false);
     setFillFormClicked(true);
-    setRadialPercentage(40);
   };
   const handleClaculate = () => {
     setCalculateClicked(true);

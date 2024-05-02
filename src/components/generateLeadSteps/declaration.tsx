@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Declaration = () => {
@@ -56,14 +57,16 @@ const Declaration = () => {
         </p>
       </div>
       <div className="py-5">
-        <button
-          className="bg-m-orange text-center rounded-md w-full text-white px-2 py-1 text-sm"
-          onClick={() => {
-            // handleClaculate();
-          }}
-        >
-          I Agree
-        </button>
+        <Link href="?personal_details_modal=true">
+          <button
+            className="bg-m-orange text-center rounded-md w-full text-white px-2 py-1 text-sm"
+            onClick={() => {
+              // handleClaculate();
+            }}
+          >
+            I Agree
+          </button>
+        </Link>
       </div>
     </div>
   );
