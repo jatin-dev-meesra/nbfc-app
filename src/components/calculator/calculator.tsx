@@ -1,7 +1,9 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Calculator = () => {
+  const router = useRouter();
   const [claculateBtnDisplay, setClaculateBtnDisplay] = useState(true);
   const [showPremium, setShowPremium] = useState(false);
   const [premiumAmount, setPremiumAmount] = useState(20000);
@@ -18,6 +20,10 @@ const Calculator = () => {
   const handleReEvaluate = () => {
     setClaculateBtnDisplay(true);
     setShowPremium(false);
+  };
+
+  const handleFillForm = () => {
+    router.push("/generatelead");
   };
   return (
     <div className="rounded-lg bg-white border-2 p-8 border-solid w-full">
@@ -136,8 +142,7 @@ const Calculator = () => {
           <button
             className="bg-m-orange text-center rounded-md text-white p-2 w-full hover:shadow-xl"
             onClick={() => {
-              // handleClaculate();
-              alert("under Development :)");
+              handleFillForm();
             }}
           >
             Fill Form

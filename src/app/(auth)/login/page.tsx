@@ -15,7 +15,7 @@ const Login = () => {
   const [otpAuthentication, setOtpAuthentication] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
 
-  const handelLogin = () => {
+  const handleLogin = () => {
     if (!otpValue && !otpSent) {
       setOtpSent(true);
       setEnterOtp(true);
@@ -28,6 +28,12 @@ const Login = () => {
     }
 
     router.push("/dashboard");
+  };
+
+  const handleKeyPress = (event: any) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
   };
 
   return (
@@ -68,6 +74,7 @@ const Login = () => {
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
                 }}
+                onKeyDown={handleKeyPress}
               />
               {enterOtp && (
                 <>
@@ -86,6 +93,7 @@ const Login = () => {
                     onChange={(e) => {
                       setOtpValue(e.target.value);
                     }}
+                    onKeyDown={handleKeyPress}
                   />
                 </>
               )}
@@ -111,7 +119,7 @@ const Login = () => {
               <button
                 className="mt-4 p-1 rounded-sm text-white bg-m-blue w-full"
                 onClick={() => {
-                  handelLogin();
+                  handleLogin();
                 }}
               >
                 Log In

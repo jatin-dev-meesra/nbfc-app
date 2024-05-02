@@ -53,7 +53,8 @@ const Navbar = ({ showMobilemenu }: any) => {
             />
           </div>
           <button color="primary" onClick={showMobilemenu}>
-            <TiThMenu />
+            {/* <TiThMenu /> */}
+            <i className="bi bi-list text-xl"></i>
           </button>
         </div>
         <div className="flex items-center gap-2">
