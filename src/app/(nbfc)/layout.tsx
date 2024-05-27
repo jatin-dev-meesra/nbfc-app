@@ -6,6 +6,8 @@ import Navbar from "@/components/navbar/navbar";
 import PersonalDetailsModal from "@/components/modals/personalDetailsModal";
 import OtpVerificationModal from "@/components/modals/otpVerificationModal";
 import OtpSuccessfullModal from "@/components/modals/otpSuccessfullModal";
+import SmqDetailsModal from "@/components/modals/smqDetailsModal";
+import CovidDetailsModal from "@/components/modals/covidDetailsModal";
 
 export default function PartnerLayout({
   children,
@@ -36,6 +38,8 @@ export default function PartnerLayout({
               <PersonalDetailsModal />
               <OtpVerificationModal />
               <OtpSuccessfullModal />
+              <SmqDetailsModal />
+              <CovidDetailsModal />
             </Suspense>
           </div>
         </section>

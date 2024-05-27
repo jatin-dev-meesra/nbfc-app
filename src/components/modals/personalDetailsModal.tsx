@@ -559,7 +559,17 @@ function PersonalDetailsModal() {
                         Edit
                       </button>
                     </Link>
-                    <Link href="?otp_verification_modal=true">
+                    {/* <Link href="?otp_verification_modal=true">
+                      <button
+                        className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm min-w-32"
+                        onClick={() => {
+                          // handleClaculate();
+                        }}
+                      >
+                        Confirm
+                      </button>
+                    </Link> */}
+                    <Link href="?smq_details_modal=true">
                       <button
                         className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm min-w-32"
                         onClick={() => {

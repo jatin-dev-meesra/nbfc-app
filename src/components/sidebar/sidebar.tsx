@@ -88,10 +88,10 @@ const Sidebar = () => {
         <div className="pt-4 text-m-secondary-text">
           <Nav vertical className="sidebarNav">
             {navigation.map((navItem, index) => (
-              <div key={index} className="pb-1">
+              <div key={index} className="pb-3">
                 <NavItem
                   key={index}
-                  className={`sidenav-bg p-1 px-3 outline-1 hover:outline-blue-300 rounded-r-lg hover:text-white hover:bg-m-orange ${
+                  className={`sidenav-bg py-2 px-3 outline-1 hover:outline-blue-300 rounded-r-lg hover:text-white hover:bg-m-orange ${
                     pathname == navItem.href ? "text-white bg-m-orange" : ""
                   }`}
                   onClick={() => {
@@ -126,7 +126,7 @@ const Sidebar = () => {
           </Nav>
         </div>
         <div className="sm:mt-auto flex justify-center items-center pb-5">
-          <button className="bg-m-orange py-1 px-3 text-lg text-white">
+          <button className="bg-m-orange py-2 px-4 text-white text-sm rounded-sm">
             <i className="bi bi-box-arrow-right px-2"></i>
             Logout
           </button>

@@ -30,37 +30,37 @@ const page = () => {
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
-                icon="bi-file-earmark-bar-graph"
+                icon="bi-building-gear"
                 value="29k"
-                name="Total Policies"
+                name="Issued Premium"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
-                icon="bi-file-earmark-bar-graph"
+                icon="bi-exclamation-square"
                 value="29k"
-                name="Total Policies"
+                name="Cancelled Policies"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
-                icon="bi-file-earmark-bar-graph"
+                icon="bi-file-earmark-arrow-up"
                 value="29k"
-                name="Total Policies"
+                name="Issued Policies"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
-                icon="bi-file-earmark-bar-graph"
+                icon="bi-building-fill-slash"
                 value="29k"
-                name="Total Policies"
+                name="Pending Payments"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
-                icon="bi-file-earmark-bar-graph"
+                icon="bi-bar-chart"
                 value="29k"
-                name="Total Policies"
+                name="Premium Under Writing"
               />
             </div>
           </div>
