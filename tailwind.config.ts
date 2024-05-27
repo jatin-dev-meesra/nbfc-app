@@ -17,7 +17,7 @@ const config: Config = {
         "m-black": "#2a2a2a",
         "m-gray": "#757575",
         "m-gray-border": "#c3c3c3",
-        "smq-blue": "#F9FAFC",
+        "smq-blue": "#f7fbff",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
