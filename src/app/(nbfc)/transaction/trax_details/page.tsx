@@ -1,9 +1,8 @@
 import HistoryDataCard from "@/components/cards/historyCard";
-import CommanTable from "@/components/tables/commanTable";
-import TransactionTable from "@/components/tables/transactionTable";
+import TraxDetailsTable from "@/components/tables/traxDetailsTable";
 import React from "react";
 
-const TransactionPage = () => {
+const TransactionDetailsPage = () => {
   return (
     <div className="mt-5">
       <div>
@@ -25,11 +24,11 @@ const TransactionPage = () => {
           />
         </div>
       </div>
-      <div className="my-3">
-        <TransactionTable />
+      <div className="my-3 pt-3">
+        <TraxDetailsTable />
       </div>
     </div>
   );
 };
 
-export default TransactionPage;
+export default TransactionDetailsPage;

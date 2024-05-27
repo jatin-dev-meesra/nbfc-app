@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Pagination from "../pagination/pagination";
 
-const CasesTable = () => {
+const TraxCasesTable = () => {
   const tableHeaders = [
     "Application No.",
     "Login Date/Time",
@@ -144,4 +144,4 @@ const CasesTable = () => {
   );
 };
 
-export default CasesTable;
+export default TraxCasesTable;
