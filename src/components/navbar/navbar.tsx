@@ -72,24 +72,24 @@ const Navbar = ({ showMobilemenu }: any) => {
           </button>
           {isOpen && (
             <ul
-              ref={dropdownRef}
-              id="profileDropdown"
-              className="p-2 fixed top-20 right-4 z-[100] bg-white rounded-box w-80 sm:w-52 shadow-xl transition"
-            >
-              <li>Welcome!</li>
-              <li>
-                <Link href="/profile">
-                  <i className="bi bi-person pr-2"></i>
-                  My Profile
-                </Link>
-              </li>
-              <li>
-                <Link href="/profile">
-                  <i className="bi bi-box-arrow-right pr-2"></i>
-                  Logout
-                </Link>
-              </li>
-            </ul>
+            ref={dropdownRef}
+            id="profileDropdown"
+            className="p-1 fixed top-20 right-4 z-[100] bg-white rounded-box w-64 sm:w-52 shadow-xl text-sm text-m-text transition rounded"
+          >
+            <li className="px-5 py-4 font-medium">Welcome!</li>
+            <li className="px-5 py-2 hover:bg-gray-100">
+              <Link href="/profile">
+                <i className="bi bi-person pr-2"></i>
+                My Profile
+              </Link>
+            </li>
+            <li className="px-5 py-2 hover:bg-gray-100">
+              <Link href="/">
+                <i className="bi bi-box-arrow-right pr-2"></i>
+                Logout
+              </Link>
+            </li>
+          </ul>
           )}
         </div>
       </nav>
