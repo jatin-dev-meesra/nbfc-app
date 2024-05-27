@@ -60,7 +60,7 @@ const GenerateLeadPage = () => {
   };
   return (
     <>
-      <section className="px-1">
+      <section className="px-1 pt-4">
         <div className="flex flex-col lg:flex-row gap-2">
           <div className="w-full h-fit lg:w-4/6">
             <div className="">
