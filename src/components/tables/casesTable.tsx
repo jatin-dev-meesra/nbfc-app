@@ -2,7 +2,44 @@ import Link from "next/link";
 import React from "react";
 import Pagination from "../pagination/pagination";
 
-const CasesTable = () => {
+interface CasesRecords {
+  records: [
+    {
+      case_id: string;
+      case_cre_datetime: string;
+      case_cus_fname: string;
+      case_cus_lname: string;
+      case_cus_mobile: string;
+      case_premium_amt: string;
+      case_city: string;
+      case_loan_tenure: string;
+      case_loan_amt: string;
+      case_status: string;
+    }
+  ];
+}
+
+function createNew(arr: any) {
+  return arr.map((item: any) => {
+    return {
+      caseDataPoints: {
+        application_no: `MSRMTR041724${item.case_id}`,
+        date: item.case_cre_datetime,
+        customername: item.case_cus_fname + " " + item.case_cus_lname,
+        number: item.case_cus_mobile,
+        amount: item.case_premium_amt,
+        borrowerLocation: item.case_city,
+        loanTenure: item.case_loan_tenure,
+        loanAmount: item.case_loan_amt,
+        status: "pending",
+      },
+    };
+  });
+}
+
+const CasesTable = (records: any) => {
+  // console.log("........records..........", records);
+
   const tableHeaders = [
     "Application No.",
     "Login Date/Time",
@@ -14,6 +51,8 @@ const CasesTable = () => {
     "Loan Amount",
     "Status",
   ];
+  // const tableDatas = createNew(records);
+
   const tableDatas = [
     {
       applicationNumber: "M2024AX123",
