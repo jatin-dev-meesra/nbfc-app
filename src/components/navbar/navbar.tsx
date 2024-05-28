@@ -8,16 +8,20 @@ import Link from "next/link";
 import User1 from "@/assets/images/users/user-1.jpg";
 import LogoSmImg from "@/assets/images/small-logo.svg";
 import LogoLgImg from "@/assets/images/logo/meesralogonbfc.svg";
+import { useAppContext } from "@/lib/context";
 
 const Navbar = ({ showMobilemenu }: any) => {
+  const [isClient, setIsClient] = useState(false);
+  const { state } = useAppContext();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLUListElement>(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-  
+
   useEffect(() => {
+    setIsClient(true);
     const handleClickOutside = (event: MouseEvent) => {
       if (
         dropdownRef.current &&
@@ -68,28 +72,29 @@ const Navbar = ({ showMobilemenu }: any) => {
             <div className="rounded-full w-10 h-10 flex justify-center items-center">
               <Image src={User1} alt="logo" className="rounded-full" />
             </div>
-            Jone Doe
+            {/* Jone Doe */}
+            {isClient ? state.userDt.fname + ` ` + state.userDt.lname : ""}
           </button>
           {isOpen && (
             <ul
-            ref={dropdownRef}
-            id="profileDropdown"
-            className="p-1 fixed top-20 right-4 z-[100] bg-white rounded-box w-64 sm:w-52 shadow-xl text-sm text-m-text transition rounded"
-          >
-            <li className="px-5 py-4 font-medium">Welcome!</li>
-            <li className="px-5 py-2 hover:bg-gray-100">
-              <Link href="/profile">
-                <i className="bi bi-person pr-2"></i>
-                My Profile
-              </Link>
-            </li>
-            <li className="px-5 py-2 hover:bg-gray-100">
-              <Link href="/">
-                <i className="bi bi-box-arrow-right pr-2"></i>
-                Logout
-              </Link>
-            </li>
-          </ul>
+              ref={dropdownRef}
+              id="profileDropdown"
+              className="p-1 fixed top-20 right-4 z-[100] bg-white rounded-box w-64 sm:w-52 shadow-xl text-sm text-m-text transition rounded"
+            >
+              <li className="px-5 py-4 font-medium">Welcome!</li>
+              <li className="px-5 py-2 hover:bg-gray-100">
+                <Link href="/profile">
+                  <i className="bi bi-person pr-2"></i>
+                  My Profile
+                </Link>
+              </li>
+              <li className="px-5 py-2 hover:bg-gray-100">
+                <Link href="/">
+                  <i className="bi bi-box-arrow-right pr-2"></i>
+                  Logout
+                </Link>
+              </li>
+            </ul>
           )}
         </div>
       </nav>

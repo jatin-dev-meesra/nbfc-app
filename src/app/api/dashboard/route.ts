@@ -13,7 +13,7 @@ export async function POST(req: any) {
     // console.log("formdata", formdata);
 
     const response = await fetch(
-      "https://partner.meesra.com/web_api_v1/adv_auth/get_dash",
+      "https://hero.meesra.com/web_api_v1/nbfc_auth/get_dash",
       {
         method: "POST",
         body: formdata,

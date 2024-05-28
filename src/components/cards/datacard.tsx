@@ -3,7 +3,7 @@ import React, { useMemo, type CSSProperties } from "react";
 
 export type DataCardType = {
   icon?: string;
-  value?: string;
+  value?: string | null;
   name?: string;
 };
 

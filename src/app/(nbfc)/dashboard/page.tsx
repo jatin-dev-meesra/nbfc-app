@@ -1,9 +1,57 @@
+"use client";
 import Calculator from "@/components/calculator/calculator";
 import DataCard from "@/components/cards/datacard";
 import CarouselComponent2 from "@/components/carousel/carousel2";
-import React from "react";
+import { useAppContext } from "@/lib/context";
+import React, { useEffect, useState } from "react";
 
-const page = () => {
+interface DashboardDataINterface {
+  total_cancelled: string;
+  total_issued_amount: string;
+  total_issued_policies: string;
+  total_pen_payments: string;
+  total_policies: string;
+  total_premium_underwriting: string;
+}
+
+const getDashboard = async (token: any, userid: any) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/dashboard`, {
+      method: "POST",
+      body: JSON.stringify({ token, userid }),
+      cache: "no-store",
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const NbfcDashboardPage = () => {
+  const [domLoaded, setDomLoaded] = useState(false);
+  const [dashboardData, setDashboardData] =
+    useState<DashboardDataINterface | null>(null);
+  const { state } = useAppContext();
+  const token = state.token;
+  const userId = state.user_id;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getDashboard(token, userId);
+        // console.log("res body", response.body);
+        setDashboardData(response.body);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+    setDomLoaded(true);
+  }, [token, userId]);
+
+  // console.log("dashboardData", dashboardData);
+
   return (
     <>
       <section>
@@ -24,42 +72,42 @@ const page = () => {
             <div className="p-1 w-1/2 md:w-1/3 ">
               <DataCard
                 icon="bi-file-earmark-bar-graph"
-                value="29k"
+                value={dashboardData?.total_policies}
                 name="Total Policies"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
                 icon="bi-building-gear"
-                value="29k"
+                value={dashboardData?.total_issued_amount}
                 name="Issued Premium"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
                 icon="bi-exclamation-square"
-                value="29k"
+                value={dashboardData?.total_cancelled}
                 name="Cancelled Policies"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
                 icon="bi-file-earmark-arrow-up"
-                value="29k"
+                value={dashboardData?.total_issued_policies}
                 name="Issued Policies"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
                 icon="bi-building-fill-slash"
-                value="29k"
+                value={dashboardData?.total_pen_payments}
                 name="Pending Payments"
               />
             </div>
             <div className="p-1 w-1/2 md:w-1/3">
               <DataCard
                 icon="bi-bar-chart"
-                value="29k"
+                value={dashboardData?.total_premium_underwriting}
                 name="Premium Under Writing"
               />
             </div>
@@ -85,4 +133,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default NbfcDashboardPage;
