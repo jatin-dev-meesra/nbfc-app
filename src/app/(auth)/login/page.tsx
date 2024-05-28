@@ -2,8 +2,36 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
 import LogoLgImg from "@/assets/images/logo-dark.png";
+import { useAppContext } from "@/lib/context";
+
+const sendOtp = async (senderId: any) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/auth/sendotp`, {
+      method: "POST",
+      body: JSON.stringify({ senderId }),
+      cache: "no-store",
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const submitOtp = async (senderId: any, auth_token: any) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/auth/submitotp`, {
+      method: "POST",
+      body: JSON.stringify({ senderId, auth_token }),
+      cache: "no-store",
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const Login = () => {
   const router = useRouter();
@@ -11,28 +39,49 @@ const Login = () => {
   const [otpValue, setOtpValue] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
 
-  const [otpSent, setOtpSent] = useState(false);
-  const [otpAuthentication, setOtpAuthentication] = useState(false);
+  const [statusBar, setStatusBar] = useState({
+    msg: "otp sent",
+    status: false,
+  });
+  const [showStatusBar, setShowStatusBar] = useState(false);
   const [enterOtp, setEnterOtp] = useState(false);
 
-  const handleLogin = () => {
-    if (!otpValue && !otpSent) {
-      setOtpSent(true);
-      setEnterOtp(true);
-      return;
-    }
-    if (otpSent && !otpValue) {
-      setOtpSent(false);
-      setOtpAuthentication(true);
+  const { setState } = useAppContext();
+
+  const handelLogin = async () => {
+    if (!otpValue && mobileNumber) {
+      const response = await sendOtp(mobileNumber);
+
+      if (response.body.status) {
+        setShowStatusBar(true);
+        setEnterOtp(true);
+        setStatusBar({ msg: "OTP Sent", status: response.body.status });
+      } else {
+        setShowStatusBar(true);
+        setStatusBar({
+          msg: response.body.msg,
+          status: response.body.status,
+        });
+      }
       return;
     }
 
-    router.push("/dashboard");
-  };
-
-  const handleKeyPress = (event: any) => {
-    if (event.key === "Enter") {
-      handleLogin();
+    if (otpValue && mobileNumber && enterOtp) {
+      const response = await submitOtp(mobileNumber, otpValue);
+      // console.log("........SUBMIT OTP RESPONSE.......", response.body);
+      if (response.body.status) {
+        setStatusBar({ msg: response.body.msg, status: response.body.status });
+        // sessionStatus = true;
+        setState({
+          sessionStatus: true,
+          token: response.body.token,
+          user_id: response.body.user_dt.user_id,
+          userDt: response.body.user_dt,
+        });
+        router.push("/dashboard");
+      } else {
+        setStatusBar({ msg: response.body.msg, status: response.body.status });
+      }
     }
   };
 
@@ -48,14 +97,15 @@ const Login = () => {
               Enter your Mobile number and one time password to access your
               panel.
             </p>
-            {otpSent && (
-              <div className="mt-7 bg-m-success text-[#10715e] bg-[#d1f2eb] w-full text-center rounded-sm p-2">
-                Otp Sent
-              </div>
-            )}
-            {otpAuthentication && (
-              <div className="mt-7 bg-m-success text-[#913341] bg-[#fcdde2] w-full text-center rounded-sm p-2">
-                Authentication Failed
+            {showStatusBar && (
+              <div
+                className={`mt-7 bg-m-success ${
+                  statusBar.status
+                    ? "text-[#10715e] bg-[#d1f2eb]"
+                    : "text-[#913341]  bg-[#fcdde2]"
+                }  w-full text-center rounded-sm p-2`}
+              >
+                {statusBar.msg}
               </div>
             )}
             <div id="inputgroups" className="w-full py-7 flex flex-col">
@@ -74,7 +124,6 @@ const Login = () => {
                 onChange={(e) => {
                   setMobileNumber(e.target.value);
                 }}
-                onKeyDown={handleKeyPress}
               />
               {enterOtp && (
                 <>
@@ -93,7 +142,6 @@ const Login = () => {
                     onChange={(e) => {
                       setOtpValue(e.target.value);
                     }}
-                    onKeyDown={handleKeyPress}
                   />
                 </>
               )}
@@ -119,7 +167,7 @@ const Login = () => {
               <button
                 className="mt-4 p-1 rounded-sm text-white bg-m-blue w-full"
                 onClick={() => {
-                  handleLogin();
+                  handelLogin();
                 }}
               >
                 Log In

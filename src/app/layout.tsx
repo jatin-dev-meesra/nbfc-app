@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "react-circular-progressbar/dist/styles.css";
+import { AppWrapper } from "@/lib/context";
 // import "react-phone-input-2/lib/style.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} bg-main-background`}>
-        {children}
+        <AppWrapper>{children}</AppWrapper>
       </body>
     </html>
   );
