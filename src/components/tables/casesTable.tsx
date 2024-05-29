@@ -37,8 +37,8 @@ function createNew(arr: any) {
   });
 }
 
-const CasesTable = (records: any) => {
-  // console.log("........records..........", records);
+const CasesTable = ({ records }: any) => {
+  console.log("........records..........", records);
 
   const tableHeaders = [
     "Application No.",
@@ -150,7 +150,44 @@ const CasesTable = (records: any) => {
             </tr>
           </thead>
           <tbody>
-            {tableDatas.map((data, index) => (
+            {records
+              ? records.map((data: any, index: any) => (
+                  <tr
+                    key={index}
+                    className="odd:bg-white even:bg-main-background border-y-2 border-y-gray-300"
+                  >
+                    <td className="px-6 py-4 text-center">
+                      <input type="checkbox" name="" id="" />
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      MX0GGN000{data.case_id}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {data.case_cre_datetime}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {data.case_cus_fname + ` ` + data.case_cus_lname}
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {data.case_cus_mobile}
+                    </td>
+                    <td className="px-6 py-4 text-center w-full">
+                      ₹{data.case_premium_amt}/-
+                    </td>
+                    <td className="px-6 py-4 text-center">{data.case_city}</td>
+                    <td className="px-6 py-4 text-center">
+                      {data.case_loan_tenure}Yrs
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      ₹{data.case_premium_amt}/-
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      {data.case_status}
+                    </td>
+                  </tr>
+                ))
+              : ""}
+            {/* {tableDatas.map((data, index) => (
               <tr
                 key={index}
                 className="odd:bg-white even:bg-main-background border-y-2 border-y-gray-300"
@@ -174,7 +211,7 @@ const CasesTable = (records: any) => {
                 <td className="px-6 py-4 text-center">₹{data.loanAmount}/-</td>
                 <td className="px-6 py-4 text-center">{data.status}</td>
               </tr>
-            ))}
+            ))} */}
           </tbody>
         </table>
         <Pagination />
