@@ -1,5 +1,5 @@
 "use client";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import Image from "next/image";
@@ -21,6 +21,7 @@ const addCase = async (token: any, userid: any, formdata: any) => {
 };
 
 function OtpVerificationModal() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const modal = searchParams.get("otp_verification_modal");
   const pathname = usePathname();
@@ -40,7 +41,8 @@ function OtpVerificationModal() {
     try {
       const response = await addCase(token, userId, userData);
       console.log("Add Case res body", response.body);
-      if (response) {
+      if (response.body.status) {
+        router.push("/generatelead?otp_successfull_modal=true");
       }
     } catch (error) {
       console.error("Error in adding Cases data:", error);
