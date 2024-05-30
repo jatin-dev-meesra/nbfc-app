@@ -18,7 +18,7 @@ const GenerateLeadPage = () => {
 
   const [radialPercentage, setRadialPercentage] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState<any>("");
   const [finalData, setFinalData] = useState([]);
   const steps = [
     "Personal Details",
@@ -26,6 +26,36 @@ const GenerateLeadPage = () => {
     "Covid-19",
     "Declaration",
   ];
+
+  // /////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////
+  const [personalDetails, setPersonalDetails] = useState({
+    policy_type: "Health",
+    loan_cover: "",
+    loan_type: "",
+    loan_year: "",
+    loan_month: "",
+    loan_amount: "",
+    loan_number: "",
+    customer_fname: "",
+    customer_lname: "",
+    customer_dob: "",
+    customer_age: "",
+    customer_email: "",
+    customer_mobile: "",
+    customer_gender: "",
+    customer_pincode: "",
+    customer_area: "",
+    customer_city: "",
+    product_type: "",
+    insurer: "",
+    mph_location: "",
+    customer_aadhaar: "",
+    customer_pan: "",
+    nominee: {},
+  });
+  // /////////////////////////////////////////////////////////////////////////////////
+  // /////////////////////////////////////////////////////////////////////////////////
 
   const displayStep = (step: any) => {
     switch (step) {
@@ -39,6 +69,8 @@ const GenerateLeadPage = () => {
             fillFormClicked={fillFormClicked}
             radialPercentage={radialPercentage}
             setRadialPercentage={setRadialPercentage}
+            setPersonalDetails={setPersonalDetails}
+            personalDetails={personalDetails}
           />
         );
       case 2:

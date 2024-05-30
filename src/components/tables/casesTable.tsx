@@ -38,7 +38,7 @@ function createNew(arr: any) {
 }
 
 const CasesTable = ({ records }: any) => {
-  console.log("........records..........", records);
+  // console.log("........records..........", records);
 
   const tableHeaders = [
     "Application No.",
@@ -179,7 +179,7 @@ const CasesTable = ({ records }: any) => {
                       {data.case_loan_tenure}Yrs
                     </td>
                     <td className="px-6 py-4 text-center">
-                      ₹{data.case_premium_amt}/-
+                      ₹{data.case_loan_amt}/-
                     </td>
                     <td className="px-6 py-4 text-center">
                       {data.case_status}

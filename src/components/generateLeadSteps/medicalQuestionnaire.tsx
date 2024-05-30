@@ -1,7 +1,16 @@
-import React from "react";
+import React, { ChangeEvent, useContext } from "react";
+import { StepperContext } from "@/context/stepperContext";
 import { SMQ_Questions } from "@/utils/smqQuestions";
 
 const MedicalQuestionnaire = () => {
+  const { userData, setUserData }: any = useContext(StepperContext);
+  const handleInputsChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): void => {
+    const { name, value } = e.target;
+    setUserData({ ...userData, [name]: value });
+  };
+
   return (
     <div className="bg-white border-2 px-8 py-6 border-solid rounded-lg">
       <h1 className=" text-xl font-medium">
@@ -11,14 +20,18 @@ const MedicalQuestionnaire = () => {
         <div className="w-full sm:w-1/4 py-1 lg:py-0">
           <div className="relative">
             <select
-              name=""
-              id=""
+              name="occupation_type"
+              id="occupation_type"
+              onChange={handleInputsChange}
+              value={userData["occupation_type" || ""]}
               className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2 focus:outline-none placeholder:text-xs"
             >
-              <option value="">Enter Your Occupation</option>
+              <option value="">Select Occupation Type</option>
+              <option value="public">Public</option>
+              <option value="private">Private</option>
             </select>
             <label
-              htmlFor="dob_input"
+              htmlFor="occupation_type"
               className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
             >
               Occupation
@@ -28,14 +41,17 @@ const MedicalQuestionnaire = () => {
         <div className="w-full sm:w-1/4 py-1 lg:py-0">
           <div className="relative">
             <select
-              name=""
-              id=""
+              name="nationality"
+              id="nationality"
+              onChange={handleInputsChange}
+              value={userData["nationality" || ""]}
               className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2 focus:outline-none placeholder:text-xs"
             >
-              <option value="">Enter Your Nationality</option>
+              <option value="">Select Your Nationality</option>
+              <option value="indian">India</option>
             </select>
             <label
-              htmlFor="age"
+              htmlFor="nationality"
               className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
             >
               Nationality
@@ -46,13 +62,15 @@ const MedicalQuestionnaire = () => {
           <div className="relative">
             <input
               type="text"
-              name="search"
-              id="age"
+              name="annual_income"
+              id="annual_income"
+              onChange={handleInputsChange}
+              value={userData["annual_income" || ""]}
               className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
               placeholder="Enter Your Annual Income"
             />
             <label
-              htmlFor="age"
+              htmlFor="annual_income"
               className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
             >
               Annual Income
@@ -65,13 +83,15 @@ const MedicalQuestionnaire = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="dob_input"
+                  name="height"
+                  id="height"
+                  onChange={handleInputsChange}
+                  value={userData["height" || ""]}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="In Cms"
                 />
                 <label
-                  htmlFor="dob_input"
+                  htmlFor="height"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Height
@@ -82,13 +102,15 @@ const MedicalQuestionnaire = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="age"
+                  name="weight"
+                  id="weight"
+                  onChange={handleInputsChange}
+                  value={userData["weight" || ""]}
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="In Kgs"
                 />
                 <label
-                  htmlFor="age"
+                  htmlFor="weight"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Weight

@@ -1,7 +1,22 @@
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
+import { StepperContext } from "@/context/stepperContext";
 
 const Declaration = () => {
+  const { userData, setUserData }: any = useContext(StepperContext);
+  const handleTestButton = () => {
+    console.log(userData);
+    if (typeof window !== "undefined") {
+      // Check if running in the browser
+      try {
+        // Attempt to stringify the state as JSON before storing
+        localStorage.setItem("userData", JSON.stringify(userData));
+      } catch (error) {
+        console.error("Error storing state in localStorage:", error);
+      }
+    }
+  };
+
   return (
     <div className="bg-white border-2 px-8 py-6 border-solid rounded-lg">
       <h1 className=" text-xl font-medium">Declaration</h1>
@@ -61,7 +76,10 @@ const Declaration = () => {
           <button
             className="bg-m-orange text-center rounded-md w-full text-white px-2 py-1 text-sm"
             onClick={() => {
+              handleTestButton();
               // handleClaculate();
+              // console.log("userData", userData);
+              // localStorage.setItem("userData", JSON.stringify(userData));
             }}
           >
             I Agree

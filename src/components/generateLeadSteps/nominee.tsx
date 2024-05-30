@@ -12,7 +12,7 @@ interface FamilyMemberInterface {
   percentage: String;
 }
 
-const Nominee = () => {
+const Nominee = ({ nomineeDt }: any) => {
   const [familyMember, setFamilyMember] = useState<FamilyMemberInterface[]>([
     {
       firstname: "",
@@ -88,13 +88,14 @@ const Nominee = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="dob_input"
+                  name="firstname"
+                  id="firstname"
+                  onChange={(e) => handleInputChange(index, "firstname", e)}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="Enter Your First Name"
                 />
                 <label
-                  htmlFor="dob_input"
+                  htmlFor="firstname"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   First Name*
@@ -105,13 +106,14 @@ const Nominee = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="age"
+                  name="lastname"
+                  id="lastname"
+                  onChange={(e) => handleInputChange(index, "lastname", e)}
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="Enter Your Last Name"
                 />
                 <label
-                  htmlFor="age"
+                  htmlFor="lastname"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Last Name*
@@ -122,13 +124,14 @@ const Nominee = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="age"
+                  name="email"
+                  id="email"
+                  onChange={(e) => handleInputChange(index, "email", e)}
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="Enter Your Email"
                 />
                 <label
-                  htmlFor="age"
+                  htmlFor="email"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Email*
@@ -141,8 +144,9 @@ const Nominee = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="dob_input"
+                  name="mobile"
+                  id="mobile"
+                  onChange={(e) => handleInputChange(index, "mobile", e)}
                   className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="Enter Your Mobile Number"
                 />
@@ -158,13 +162,14 @@ const Nominee = () => {
               <div className="relative">
                 <input
                   type="text"
-                  name="search"
-                  id="age"
+                  name="percentage"
+                  id="percentage"
+                  onChange={(e) => handleInputChange(index, "percentage", e)}
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="Enter % Share of Nomination"
                 />
                 <label
-                  htmlFor="age"
+                  htmlFor="percentage"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Percentage
@@ -174,14 +179,22 @@ const Nominee = () => {
             <div className="w-full sm:w-1/3 py-1 lg:py-0">
               <div className="relative">
                 <select
-                  name=""
-                  id=""
+                  name="relation"
+                  id="relation"
+                  onChange={(e) => handleInputChange(index, "relation", e)}
                   className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2 focus:outline-none placeholder:text-xs"
                 >
                   <option value="">Select Your Relationship</option>
+                  <option value="self">Self</option>
+                  <option value="husband">Husband</option>
+                  <option value="wife">Wife</option>
+                  <option value="mother">Mother</option>
+                  <option value="father">Father</option>
+                  <option value="daughter">Daughter</option>
+                  <option value="son">Son</option>
                 </select>
                 <label
-                  htmlFor="age"
+                  htmlFor="relation"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Relationship
