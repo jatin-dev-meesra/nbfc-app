@@ -3,19 +3,18 @@ import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import Image from "next/image";
-
 import OTPSuccessfullVerified from "@/assets/images/otp_verified.svg";
 
 function OtpSuccessfullModal() {
   const router = useRouter();
-
   const searchParams = useSearchParams();
   const modal = searchParams.get("otp_successfull_modal");
   const pathname = usePathname();
 
-  const handleProceed = () => {
+  const handleProceed = async () => {
     // router.reload();
     // router.push("/generatelead");
+
     window.location.href = "/generatelead";
   };
   return (

@@ -25,12 +25,16 @@ const PersonalDetails = ({
     setFillFormClicked(true);
   };
   const handleClaculate = () => {
-    console.log("......personalDetails data......", userData);
+    // console.log("......personalDetails data......", userData);
 
     // setPersonalDetails(formData);
     setCalculateClicked(true);
     setPremiumAmount(20000);
     setRadialPercentage(20);
+
+    userData["premium_amt"] = 20000;
+    userData["premium_gst"] = (20000 * 18) / 100;
+    userData["premium_total"] = 20000 + (20000 * 18) / 100;
   };
 
   // //////////////////////////////////////////////////////////////////////////

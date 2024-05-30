@@ -3,13 +3,49 @@ import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import Image from "next/image";
-
+import { useAppContext } from "@/lib/context";
 import EnterOTP from "@/assets/images/enter_otp_panal.svg";
+
+const addCase = async (token: any, userid: any, formdata: any) => {
+  try {
+    const res = await fetch(`${process.env.BASE_URL}/api/genratelead`, {
+      method: "POST",
+      body: JSON.stringify({ token, userid, formdata }),
+      cache: "no-store",
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 function OtpVerificationModal() {
   const searchParams = useSearchParams();
   const modal = searchParams.get("otp_verification_modal");
   const pathname = usePathname();
+
+  let userData: any = null;
+  if (typeof window !== "undefined") {
+    userData = localStorage.getItem("userData") || null;
+    userData = JSON.parse(userData);
+    // console.log("userdata", userData);
+  }
+
+  const { state } = useAppContext();
+  const token = state.token;
+  const userId = state.user_id;
+
+  const handleOTPverification = async () => {
+    try {
+      const response = await addCase(token, userId, userData);
+      console.log("Add Case res body", response.body);
+      if (response) {
+      }
+    } catch (error) {
+      console.error("Error in adding Cases data:", error);
+    }
+  };
 
   return (
     <>
@@ -45,16 +81,16 @@ function OtpVerificationModal() {
                   Resend OTP
                 </button>
                 <div className="flex justify-between py-2 px-12 w-full">
-                  <Link href='?otp_successfull_modal=true' className="w-full">
-                    <button
-                      className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm w-full"
-                      onClick={() => {
-                        // handleClaculate();
-                      }}
-                    >
-                      Verify & Proceed
-                    </button>
-                  </Link>
+                  {/* <Link href="?otp_successfull_modal=true" className="w-full"> */}
+                  <button
+                    className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm w-full"
+                    onClick={() => {
+                      handleOTPverification();
+                    }}
+                  >
+                    Verify & Proceed
+                  </button>
+                  {/* </Link> */}
                 </div>
               </div>
             </div>
