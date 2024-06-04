@@ -1,4 +1,5 @@
 "use client";
+import { genratePayment } from "@/actions/hdfc/createPayment";
 import HistoryDataCard from "@/components/cards/historyCard";
 import CasesTable from "@/components/tables/casesTable";
 import { useAppContext } from "@/lib/context";
@@ -68,6 +69,16 @@ const CasesPage = () => {
       ],
     },
   ];
+
+  const payallPayments = async () => {
+    // alert("Are You Ready to Pay!");
+    const response = await genratePayment();
+    const result = JSON.parse(response as string);
+    const url = result?.payment_links?.web;
+    // console.log("{{{{{{{RESPONSE DATA}}}}}}}}}}", result?.payment_links?.web);
+
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
   return (
     <div className="mt-5">
       <div>
@@ -116,7 +127,10 @@ const CasesPage = () => {
               </select>
             </div>
           ))}
-          <button className="w-full min-w-60 mt-auto sm:my-auto border border-m-orange bg-m-orange text-white px-5 py-2 text-sm rounded-md flex justify-center items-center">
+          <button
+            onClick={payallPayments}
+            className="w-full min-w-60 mt-auto sm:my-auto border border-m-orange bg-m-orange text-white px-5 py-2 text-sm rounded-md flex justify-center items-center"
+          >
             Pay All
           </button>
         </div>
