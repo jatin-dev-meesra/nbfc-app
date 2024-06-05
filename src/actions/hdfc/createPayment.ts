@@ -12,11 +12,11 @@ export const genratePayment = async () => {
 
     const raw = JSON.stringify({
       order_id: "001",
-      amount: "10.0",
+      amount: "01.0",
       customer_id: "001",
-      customer_email: "test@mail.com",
-      customer_phone: "8604613494",
-      payment_page_client_id: "your_client_id",
+      customer_email: "jatin@meesra.com",
+      customer_phone: "7703913871",
+      payment_page_client_id: "hdfcmaster",
       action: "paymentPage",
       currency: "INR",
       return_url: `${process.env.BASE_URL}/`,
