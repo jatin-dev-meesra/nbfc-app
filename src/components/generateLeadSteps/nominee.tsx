@@ -61,6 +61,7 @@ const Nominee = () => {
     if (typeof window !== "undefined") {
       localStorage.setItem("nomineeData", JSON.stringify(familyMember));
     }
+    alert("Nominee Details are confirmed proceed to Next");
     // console.log("NOMINEES", familyMember);
   };
 

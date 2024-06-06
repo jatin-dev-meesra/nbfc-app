@@ -1,6 +1,10 @@
-import React, { ChangeEvent, useContext } from "react";
+import React, { ChangeEvent, useContext, useState } from "react";
 import { StepperContext } from "@/context/stepperContext";
 import { SMQ_Questions } from "@/utils/smqQuestions";
+
+interface Selections {
+  [key: number]: "Yes" | "No";
+}
 
 const MedicalQuestionnaire = () => {
   const { userData, setUserData }: any = useContext(StepperContext);
@@ -9,6 +13,23 @@ const MedicalQuestionnaire = () => {
   ): void => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+  };
+
+  const initialSelections: Selections = SMQ_Questions.reduce(
+    (acc, _, index) => {
+      acc[index] = "No";
+      return acc;
+    },
+    {} as Selections
+  );
+
+  const [selections, setSelections] = useState<Selections>(initialSelections);
+  // Function to handle button clicks
+  const handleSelection = (index: any, answer: any) => {
+    setSelections((prevSelections: any) => ({
+      ...prevSelections,
+      [index]: answer,
+    }));
   };
 
   return (
@@ -134,20 +155,26 @@ const MedicalQuestionnaire = () => {
             <div className="flex gap-1 justify-between">
               <div>
                 <button
-                  className="bg-[#f9fafc] text-center rounded-md text-m-black px-2 py-1 text-sm"
-                  onClick={() => {
-                    alert("Under Development :)");
-                  }}
+                  className={` text-center rounded-md px-2 py-1 text-sm 
+                  ${
+                    selections[index] === "Yes"
+                      ? "bg-m-orange text-white"
+                      : "bg-[#f9fafc] text-m-black"
+                  }`}
+                  onClick={() => handleSelection(index, "Yes")}
                 >
                   Yes
                 </button>
               </div>
               <div>
                 <button
-                  className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
-                  onClick={() => {
-                    alert("Under Development :)");
-                  }}
+                  className={`text-center rounded-md px-2 py-1 text-sm 
+                  ${
+                    selections[index] === "No"
+                      ? "bg-m-orange text-white"
+                      : "bg-[#f9fafc] text-m-black"
+                  }`}
+                  onClick={() => handleSelection(index, "No")}
                 >
                   No
                 </button>

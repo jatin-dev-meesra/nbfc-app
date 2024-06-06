@@ -176,7 +176,7 @@ const CasesTable = ({ records }: any) => {
                     </td>
                     <td className="px-6 py-4 text-center">{data.case_city}</td>
                     <td className="px-6 py-4 text-center">
-                      {data.case_loan_tenure}Yrs
+                      {`${data.case_loan_tenure + " "}M`}
                     </td>
                     <td className="px-6 py-4 text-center">
                       ₹{data.case_loan_amt}/-
