@@ -12,7 +12,7 @@ interface FamilyMemberInterface {
   percentage: String;
 }
 
-const Nominee = ({ nomineeDt }: any) => {
+const Nominee = () => {
   const [familyMember, setFamilyMember] = useState<FamilyMemberInterface[]>([
     {
       firstname: "",
@@ -57,30 +57,47 @@ const Nominee = ({ nomineeDt }: any) => {
     setFamilyMember(updatedFamilyMembers);
   };
 
+  const confirmNomineeDt = () => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("nomineeData", JSON.stringify(familyMember));
+    }
+    // console.log("NOMINEES", familyMember);
+  };
+
   return (
     <>
       <div className="flex justify-between items-center pt-4">
-        <h1 className=" text-xl font-medium py-8">Nominee Details</h1>
-        <div>
-          <button
-            className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
-            onClick={addMember}
-          >
-            Add More
-          </button>
-        </div>
+        {/* <h1 className=" text-xl font-medium py-8">Nominee Details</h1> */}
+        {/* <div>
+            <button
+              className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
+              onClick={addMember}
+            >
+              Add More
+            </button>
+          </div> */}
       </div>
       {familyMember.map((member, index) => (
         <div key={index}>
           <div className="flex justify-between items-center pt-4">
             <h1 className=" text-xl font-medium py-8">Nominee Details</h1>
-            <div>
+            <div className="flex gap-4">
               <button
                 className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
                 onClick={removeMember}
               >
                 Remove
               </button>
+              {index === 0 ? (
+                <button
+                  className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
+                  onClick={addMember}
+                >
+                  Add More
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="py-5 flex flex-col sm:flex-row gap-3">
@@ -123,7 +140,7 @@ const Nominee = ({ nomineeDt }: any) => {
             <div className="w-full sm:w-1/3 py-1 lg:py-0">
               <div className="relative">
                 <input
-                  type="text"
+                  type="email"
                   name="email"
                   id="email"
                   onChange={(e) => handleInputChange(index, "email", e)}
@@ -151,7 +168,7 @@ const Nominee = ({ nomineeDt }: any) => {
                   placeholder="Enter Your Mobile Number"
                 />
                 <label
-                  htmlFor="dob_input"
+                  htmlFor="mobile"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Mobile Number*
@@ -204,6 +221,18 @@ const Nominee = ({ nomineeDt }: any) => {
           </div>
         </div>
       ))}
+      <div className="flex justify-between items-center pt-4">
+        <h1></h1>
+        {/* <h1 className=" text-xl font-medium py-8">Consirm Details</h1> */}
+        <div>
+          <button
+            className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
+            onClick={confirmNomineeDt}
+          >
+            Confirm Nominee Details
+          </button>
+        </div>
+      </div>
     </>
   );
 };

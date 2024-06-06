@@ -511,7 +511,7 @@ function PersonalDetailsModal() {
                       </div>
                       {/* Nominee Details */}
                       <>
-                        <Nominee nomineeDt={userData.nomineeDetails} />
+                        <Nominee />
                       </>
                     </div>
                   )}

@@ -7,6 +7,8 @@ export async function POST(req: any) {
 
     const token = body.token;
     const userid = body.userid;
+    const loanPeriod =
+      Number(body?.formdata.year) * 12 + Number(body?.formdata.month);
 
     const formdata = new FormData();
     if (body) {
@@ -15,7 +17,8 @@ export async function POST(req: any) {
       formdata.append("case_policy_type", body?.formdata.policy_type);
       formdata.append("case_loan_cover", body?.formdata.loan_cover);
       formdata.append("case_loan_type", body?.formdata.loan_type);
-      formdata.append("case_loan_tenure", body?.formdata.loan_year);
+      // formdata.append("case_loan_tenure", body?.formdata.loan_year);
+      formdata.append("case_loan_tenure", String(loanPeriod));
       formdata.append("case_loan_amt", body?.formdata.loan_amount);
       formdata.append("case_loan_number", body?.formdata.loan_number);
       formdata.append("case_cus_fname", body?.formdata.customer_fname);

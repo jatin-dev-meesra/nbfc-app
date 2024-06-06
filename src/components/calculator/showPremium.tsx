@@ -24,21 +24,21 @@ const ShowPremiumCalculator = ({
           <span>Premium Amount</span>
           <span>
             <i className="bi bi-currency-rupee"></i>
-            {premiumAmount}
+            {Math.round(premiumAmount)}
           </span>
         </p>
         <p className="text-m-black p-2 flex justify-between items-center border-b-2 border-dotted border-gray-400">
           <span>GST {`(18%)`}</span>
           <span>
             <i className="bi bi-currency-rupee"></i>
-            {(premiumAmount * 18) / 100}
+            {Math.round((premiumAmount * 18) / 100)}
           </span>
         </p>
         <p className="text-m-black font-semibold p-2 flex justify-between items-center">
           <span>Total Amount</span>
           <span>
             <i className="bi bi-currency-rupee"></i>
-            {(premiumAmount * 118) / 100}
+            {Math.round((premiumAmount * 118) / 100)}
           </span>
         </p>
         {/* {calculateClicked && (

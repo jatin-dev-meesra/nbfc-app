@@ -7,6 +7,17 @@ import { genrateQuote, getToken } from "@/actions/quotation";
 import { FormError } from "../form-error";
 import { FormSuccess } from "../form-success";
 
+interface FamilyMemberInterface {
+  firstname: String;
+  lastname: String;
+  email: String;
+  relation: String;
+  mobile: String;
+  dob?: String;
+  age?: String;
+  percentage: String;
+}
+
 const PersonalDetails = ({
   calculateClicked,
   setCalculateClicked,
@@ -20,6 +31,17 @@ const PersonalDetails = ({
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  // const [nomineeFormData, setNomineeFormData] = useState([]);
+  const [familyMember, setFamilyMember] = useState<FamilyMemberInterface[]>([
+    {
+      firstname: "",
+      lastname: "",
+      email: "",
+      mobile: "",
+      relation: "self",
+      percentage: "",
+    },
+  ]);
 
   const handleInputsChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -79,7 +101,6 @@ const PersonalDetails = ({
 
   // //////////////////////////////////////////////////////////////////////////
   // //////////////////////////////////////////////////////////////////////////
-  const [nomineeFormData, setNomineeFormData] = useState({});
 
   // const handleInputsChange = (
   //   e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -609,7 +630,7 @@ const PersonalDetails = ({
           </div>
           {/* Nominee Details */}
           <>
-            <Nominee nomineeDt={userData.nomineeDetails} />
+            <Nominee />
           </>
         </div>
       )}
