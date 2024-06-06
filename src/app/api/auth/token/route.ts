@@ -17,7 +17,8 @@ export async function POST(req: any) {
     };
 
     const response = await fetch(
-      "https://sandbox-in-gw.insuremo.com/cas/ebao/v2/json/tickets",
+      // "https://sandbox-in-gw.insuremo.com/cas/ebao/v2/json/tickets",
+      "https://meesra-sandbox-in.insuremo.com/cas/ebao/v2/json/tickets",
       requestOptions
     );
 

@@ -14,6 +14,13 @@ export const genrateQuote = async (token: any, formdata: any) => {
   try {
     const loanPeriod =
       Number(formdata["year"]) * 12 + Number(formdata["month"]);
+
+    let securecode = "UB";
+    if (formdata["loan_type"] === "secured_loan") {
+      securecode = "BL";
+    } else {
+      securecode = "UB";
+    }
     const res = await fetch(`${process.env.BASE_URL}/api/auth/quote`, {
       method: "POST",
       body: JSON.stringify({
@@ -21,11 +28,14 @@ export const genrateQuote = async (token: any, formdata: any) => {
         age: formdata["age"],
         loanamt: formdata["loan_amount"],
         loanTenure: loanPeriod,
+        gender: formdata["gender"],
+        loantype: securecode,
       }),
       cache: "no-store",
     });
     return res.json();
   } catch (error) {
     console.log(error);
+    throw Error("Something went wrong");
   }
 };

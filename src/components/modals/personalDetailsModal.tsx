@@ -26,21 +26,25 @@ function PersonalDetailsModal() {
                     <div className="w-full sm:w-1/3 py-1 lg:py-0">
                       <div className="relative">
                         <select
-                          name="policy_type"
-                          id="policy_type"
-                          value={userData["policy_type" || ""]}
+                          name="product_type"
+                          id="product_type"
+                          disabled={true}
+                          value={userData["product_type" || ""]}
                           className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
                         >
-                          <option value="">Select Your Policy Type</option>
-                          <option value="Health">Health</option>
-                          <option value="Life">Life</option>
-                          <option value="Motor">Motor</option>
+                          {/* <option value="">Select Your Policy Type</option> */}
+                          <option
+                            value="group_credit_shield"
+                            className=" uppercase"
+                          >
+                            Group Credit Shield
+                          </option>
                         </select>
                         <label
                           htmlFor="policy_type"
                           className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                         >
-                          Policy Type
+                          Product Type
                         </label>
                       </div>
                     </div>
@@ -49,12 +53,13 @@ function PersonalDetailsModal() {
                         <select
                           name="loan_cover"
                           id="loan_cover"
+                          disabled={true}
                           value={userData["loan_cover" || ""]}
                           className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
                         >
-                          <option value="">Reducing / Level</option>
-                          <option value="Reducing">Reducing</option>
-                          <option value="Level">Level</option>
+                          {/* <option value="">Reducing / Level</option> */}
+                          <option value="reducing">Reducing</option>
+                          <option value="level">Level</option>
                         </select>
                         <label
                           htmlFor="loan_cover"
@@ -69,12 +74,13 @@ function PersonalDetailsModal() {
                         <select
                           name="loan_type"
                           id="loan_type"
+                          disabled={true}
                           value={userData["loan_type" || ""]}
                           className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
                         >
-                          <option value="">Select Loan type</option>
-                          <option value="term_loan">Term Loan</option>
-                          <option value="home_loan">Home Loan</option>
+                          {/* <option value="">Select Loan type</option> */}
+                          <option value="secured_loan">Secured Loan</option>
+                          <option value="unsecured_loan">Unsecured Loan</option>
                         </select>
                         <label
                           htmlFor="loan_type"
@@ -94,69 +100,44 @@ function PersonalDetailsModal() {
                         Loan Tenure*
                       </label>
                     </div>
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex flex-col pt-2 sm:flex-row gap-3">
                       <div className="w-full sm:w-1/3 py-1 lg:py-0">
                         <div className="">
                           <div className="flex gap-3">
-                            <select
-                              name="loan_year"
-                              id="loan_year"
-                              value={userData["loan_year" || ""]}
-                              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
-                            >
-                              <option className="text-sm text-gray-500">
-                                Year
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                2024
-                              </option>
-                            </select>
-                            <select
-                              name="loan_month"
-                              id="loan_month"
-                              value={userData["loan_month" || ""]}
-                              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
-                            >
-                              <option className="text-sm text-gray-500">
-                                Month
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                January
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                February
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                March
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                April
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                May
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                June
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                July
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                August
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                September
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                October
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                November
-                              </option>
-                              <option className="text-sm text-gray-500">
-                                December
-                              </option>
-                            </select>
+                            <div className="relative">
+                              <input
+                                type="text"
+                                name="year"
+                                id="year"
+                                disabled={true}
+                                value={userData["year" || ""]}
+                                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
+                                placeholder="year"
+                              />
+                              <label
+                                htmlFor="year"
+                                className="absolute px-1 uppercase text-gray-500 duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+                              >
+                                Year*
+                              </label>
+                            </div>
+                            <div className="relative">
+                              <input
+                                // type="month"
+                                name="month"
+                                id="month"
+                                disabled={true}
+                                value={userData["month" || ""]}
+                                className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
+                                placeholder="month"
+                              />
+                              <label
+                                htmlFor="month"
+                                className="absolute px-1 uppercase text-gray-500 duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+                              >
+                                Month*
+                              </label>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -166,6 +147,7 @@ function PersonalDetailsModal() {
                             type="text"
                             name="loan_amount"
                             id="loan_amount"
+                            disabled={true}
                             value={userData["loan_amount" || ""]}
                             className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                             placeholder="Enter Your Loan Amount"
@@ -184,6 +166,7 @@ function PersonalDetailsModal() {
                             type="text"
                             name="loan_number"
                             id="loan_number"
+                            disabled={true}
                             value={userData["loan_number" || ""]}
                             className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                             placeholder="Enter Your Loan Number"
@@ -205,6 +188,7 @@ function PersonalDetailsModal() {
                           type="text"
                           name="customer_fname"
                           id="customer_fname"
+                          disabled={true}
                           value={userData["customer_fname" || ""]}
                           className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your First Name"
@@ -223,6 +207,7 @@ function PersonalDetailsModal() {
                           type="text"
                           name="customer_lname"
                           id="customer_lname"
+                          disabled={true}
                           value={userData["customer_lname" || ""]}
                           className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your Last Name"
@@ -243,6 +228,7 @@ function PersonalDetailsModal() {
                               type="date"
                               name="customer_dob"
                               id="customer_dob"
+                              disabled={true}
                               value={userData["customer_dob" || ""]}
                               className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none placeholder:text-xs"
                               placeholder="Enter Your Loan Amount"
@@ -258,15 +244,16 @@ function PersonalDetailsModal() {
                         <div className="w-1/2">
                           <div className="relative">
                             <input
+                              disabled={true}
                               type="text"
-                              name="customer_age"
-                              id="customer_age"
-                              value={userData["customer_age" || ""]}
+                              name="age"
+                              id="age"
+                              value={userData["age" || ""]}
                               className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none placeholder:text-xs"
                               placeholder="xx"
                             />
                             <label
-                              htmlFor="customer_age"
+                              htmlFor="age"
                               className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                             >
                               Age
@@ -283,6 +270,7 @@ function PersonalDetailsModal() {
                           type="email"
                           name="customer_email"
                           id="customer_email"
+                          disabled={true}
                           value={userData["customer_email" || ""]}
                           className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your Email"
@@ -301,6 +289,7 @@ function PersonalDetailsModal() {
                           type="text"
                           name="customer_mobile"
                           id="customer_mobile"
+                          disabled={true}
                           value={userData["customer_mobile" || ""]}
                           className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your Mobile Number"
@@ -315,19 +304,22 @@ function PersonalDetailsModal() {
                     </div>
                     <div className="w-full sm:w-1/3 py-1 lg:py-0">
                       <div className="relative">
-                        <input
-                          type="text"
-                          name="customer_gender"
-                          id="customer_gender"
-                          value={userData["customer_gender" || ""]}
-                          className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
-                          placeholder="Enter Your Gender"
-                        />
+                        <select
+                          name="gender"
+                          id="gender"
+                          disabled={true}
+                          value={userData["gender" || ""]}
+                          className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 px-2.5 py-2 focus:outline-none placeholder:text-xs"
+                        >
+                          {/* <option value="">Reducing / Level</option> */}
+                          <option value="M">Male</option>
+                          <option value="F">Female</option>
+                        </select>
                         <label
-                          htmlFor="customer_gender"
+                          htmlFor="loan_cover"
                           className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                         >
-                          Gender*
+                          Gender
                         </label>
                       </div>
                     </div>
@@ -339,6 +331,7 @@ function PersonalDetailsModal() {
                           type="text"
                           name="customer_pincode"
                           id="customer_pincode"
+                          disabled={true}
                           value={userData["customer_pincode" || ""]}
                           className="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your Pin-Code"
@@ -357,6 +350,7 @@ function PersonalDetailsModal() {
                           type="text"
                           name="customer_area"
                           id="customer_area"
+                          disabled={true}
                           value={userData["customer_area" || ""]}
                           className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your Area"
@@ -375,6 +369,7 @@ function PersonalDetailsModal() {
                           type="text"
                           name="customer_city"
                           id="customer_city"
+                          disabled={true}
                           value={userData["customer_city" || ""]}
                           className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
                           placeholder="Enter Your City"
@@ -392,34 +387,15 @@ function PersonalDetailsModal() {
                     <div className="w-full sm:w-1/3 py-1 lg:py-0">
                       <div className="relative">
                         <select
-                          name="product_type"
-                          id="product_type"
-                          value={userData["product_type" || ""]}
-                          className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
-                        >
-                          <option value="">Select Your Product Type</option>
-                          <option value="Term">Term</option>
-                          <option value="Home">Home</option>
-                        </select>
-                        <label
-                          htmlFor="product_type"
-                          className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
-                        >
-                          Product Type
-                        </label>
-                      </div>
-                    </div>
-                    <div className="w-full sm:w-1/3 py-1 lg:py-0">
-                      <div className="relative">
-                        <select
                           name="insurer"
                           id="insurer"
+                          disabled={true}
                           value={userData["insurer" || ""]}
-                          className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
+                          className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 px-2.5 py-2 focus:outline-none placeholder:text-xs"
                         >
-                          <option value="">Select Your Insurer</option>
-                          <option value="Pramerica">Pramerica</option>
-                          <option value="Balic">Balic</option>
+                          {/* <option value="">Select Your Insurer</option> */}
+                          <option value="pramerica">Pramerica</option>
+                          <option value="balic">Balic</option>
                         </select>
                         <label
                           htmlFor="insurer"
@@ -430,27 +406,49 @@ function PersonalDetailsModal() {
                       </div>
                     </div>
                     <div className="w-full sm:w-1/3 py-1 lg:py-0">
-                      <div className="relative">
-                        <select
-                          name="mph_location"
-                          id="mph_location"
-                          value={userData["mph_location" || ""]}
-                          className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2 .5 focus:outline-none placeholder:text-xs"
-                        >
-                          <option value="" className="">
-                            Select Your Loaction
-                          </option>
-                          <option value="Jaipur" className="">
-                            Jaipur
-                          </option>
-                        </select>
-                        <label
-                          htmlFor="mph_location"
-                          className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
-                        >
-                          MPH Location*
-                        </label>
-                      </div>
+                      {/* <div className="relative">
+            <select
+              name="mph_location"
+              id="mph_location"
+              onChange={handleInputsChange}
+              value={userData["mph_location" || ""]}
+              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2 .5 focus:outline-none placeholder:text-xs"
+            >
+              <option value="" className="">
+                Select Your Loaction
+              </option>
+              <option value="Jaipur" className="">
+                Jaipur
+              </option>
+            </select>
+            <label
+              htmlFor="mph_location"
+              className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+            >
+              MPH Location*
+            </label>
+          </div> */}
+                    </div>
+                    <div className="w-full sm:w-1/3 py-1 lg:py-0">
+                      {/* <div className="relative">
+            <select
+              name="product_type"
+              id="product_type"
+              onChange={handleInputsChange}
+              value={userData["product_type" || ""]}
+              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
+            >
+              <option value="">Select Your Product Type</option>
+              <option value="Term">Term</option>
+              <option value="Home">Home</option>
+            </select>
+            <label
+              htmlFor="product_type"
+              className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+            >
+              Product Type
+            </label>
+          </div> */}
                     </div>
                   </div>
                   {true && (

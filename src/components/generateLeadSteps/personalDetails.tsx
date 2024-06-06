@@ -1,7 +1,11 @@
 "use client";
-import React, { ChangeEvent, useContext, useState } from "react";
+import React, { ChangeEvent, useContext, useState, useTransition } from "react";
 import { StepperContext } from "@/context/stepperContext";
 import Nominee from "./nominee";
+import { calculateAge } from "@/utils/ageCalculator";
+import { genrateQuote, getToken } from "@/actions/quotation";
+import { FormError } from "../form-error";
+import { FormSuccess } from "../form-success";
 
 const PersonalDetails = ({
   calculateClicked,
@@ -13,28 +17,64 @@ const PersonalDetails = ({
   radialPercentage,
 }: any) => {
   const { userData, setUserData }: any = useContext(StepperContext);
+  const [isPending, setIsPending] = useState(false);
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+
   const handleInputsChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
+    if (name === "customer_dob") {
+      const age = calculateAge(new Date(value));
+      setUserData({ ...userData, ["age"]: age });
+    }
   };
 
   const handleFillForm = () => {
     setCalculateClicked(false);
     setFillFormClicked(true);
   };
-  const handleClaculate = () => {
-    // console.log("......personalDetails data......", userData);
+  const handleClaculate = async () => {
+    setIsPending(true);
+    setError("");
+    setSuccess("");
+    if (!userData["product_type"])
+      setUserData({ ...userData, ["product_type"]: "group_credit_shield" });
+    if (!userData["loan_cover"])
+      setUserData({ ...userData, ["loan_cover"]: "reducing" });
+    if (!userData["loan_type"])
+      setUserData({ ...userData, ["loan_type"]: "secured_loan" });
+    if (!userData["insurer"])
+      setUserData({ ...userData, ["insurer"]: "pramerica" });
+    if (!userData["gender"]) setUserData({ ...userData, ["gender"]: "M" });
 
-    // setPersonalDetails(formData);
+    const response = await getToken();
+    // console.log("::::TOKEN RESPONSE:::", JSON.parse(response.body));
+    const tokenBody = JSON.parse(response.body);
+    if (tokenBody?.authResult) {
+      try {
+        const res = await genrateQuote(tokenBody?.access_token, userData);
+        // console.log("[[[[[[[[[[[QUOTE RESPONSE]]]]]]]]]", JSON.parse(res.body));
+        const result = await JSON.parse(res.body);
+        if (result?.GrossPremium) {
+          setPremiumAmount(result?.GrossPremium);
+        } else {
+          setPremiumAmount(0);
+        }
+        userData["premium_amt"] = result?.GrossPremium;
+        userData["premium_gst"] = (Number(result?.GrossPremium) * 18) / 100;
+        userData["premium_total"] = (Number(result?.GrossPremium) * 118) / 100;
+      } catch (error) {
+        setError("Somthing went wrong! Pls try again");
+      }
+    } else {
+      console.log("didn't get token");
+    }
     setCalculateClicked(true);
-    setPremiumAmount(20000);
     setRadialPercentage(20);
-
-    userData["premium_amt"] = 20000;
-    userData["premium_gst"] = (20000 * 18) / 100;
-    userData["premium_total"] = 20000 + (20000 * 18) / 100;
+    setIsPending(false);
   };
 
   // //////////////////////////////////////////////////////////////////////////
@@ -60,22 +100,22 @@ const PersonalDetails = ({
         <div className="w-full sm:w-1/3 py-1 lg:py-0">
           <div className="relative">
             <select
-              name="policy_type"
-              id="policy_type"
+              name="product_type"
+              id="product_type"
               onChange={handleInputsChange}
-              value={userData["policy_type" || ""]}
+              value={userData["product_type" || ""]}
               className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
             >
-              <option value="">Select Your Policy Type</option>
-              <option value="Health">Health</option>
-              <option value="Life">Life</option>
-              <option value="Motor">Motor</option>
+              {/* <option value="">Select Your Policy Type</option> */}
+              <option value="group_credit_shield" className=" uppercase">
+                Group Credit Shield
+              </option>
             </select>
             <label
               htmlFor="policy_type"
               className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
             >
-              Policy Type
+              Product Type
             </label>
           </div>
         </div>
@@ -88,9 +128,9 @@ const PersonalDetails = ({
               value={userData["loan_cover" || ""]}
               className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
             >
-              <option value="">Reducing / Level</option>
-              <option value="Reducing">Reducing</option>
-              <option value="Level">Level</option>
+              {/* <option value="">Reducing / Level</option> */}
+              <option value="reducing">Reducing</option>
+              <option value="level">Level</option>
             </select>
             <label
               htmlFor="loan_cover"
@@ -109,9 +149,9 @@ const PersonalDetails = ({
               value={userData["loan_type" || ""]}
               className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
             >
-              <option value="">Select Loan type</option>
-              <option value="term_loan">Term Loan</option>
-              <option value="home_loan">Home Loan</option>
+              {/* <option value="">Select Loan type</option> */}
+              <option value="secured_loan">Secured Loan</option>
+              <option value="unsecured_loan">Unsecured Loan</option>
             </select>
             <label
               htmlFor="loan_type"
@@ -128,41 +168,44 @@ const PersonalDetails = ({
             Loan Tenure*
           </label>
         </div>
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col pt-2 sm:flex-row gap-3">
           <div className="w-full sm:w-1/3 py-1 lg:py-0">
             <div className="">
               <div className="flex gap-3">
-                <select
-                  name="loan_year"
-                  id="loan_year"
-                  onChange={handleInputsChange}
-                  value={userData["loan_year" || ""]}
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
-                >
-                  <option className="text-sm text-gray-500">Year</option>
-                  <option className="text-sm text-gray-500">2024</option>
-                </select>
-                <select
-                  name="loan_month"
-                  id="loan_month"
-                  onChange={handleInputsChange}
-                  value={userData["loan_month" || ""]}
-                  className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
-                >
-                  <option className="text-sm text-gray-500">Month</option>
-                  <option className="text-sm text-gray-500">January</option>
-                  <option className="text-sm text-gray-500">February</option>
-                  <option className="text-sm text-gray-500">March</option>
-                  <option className="text-sm text-gray-500">April</option>
-                  <option className="text-sm text-gray-500">May</option>
-                  <option className="text-sm text-gray-500">June</option>
-                  <option className="text-sm text-gray-500">July</option>
-                  <option className="text-sm text-gray-500">August</option>
-                  <option className="text-sm text-gray-500">September</option>
-                  <option className="text-sm text-gray-500">October</option>
-                  <option className="text-sm text-gray-500">November</option>
-                  <option className="text-sm text-gray-500">December</option>
-                </select>
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="year"
+                    id="year"
+                    onChange={handleInputsChange}
+                    value={userData["year" || ""]}
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
+                    placeholder="year"
+                  />
+                  <label
+                    htmlFor="year"
+                    className="absolute px-1 uppercase text-gray-500 duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+                  >
+                    Year*
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    // type="month"
+                    name="month"
+                    id="month"
+                    onChange={handleInputsChange}
+                    value={userData["month" || ""]}
+                    className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none"
+                    placeholder="month"
+                  />
+                  <label
+                    htmlFor="month"
+                    className="absolute px-1 uppercase text-gray-500 duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+                  >
+                    Month*
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -269,16 +312,17 @@ const PersonalDetails = ({
             <div className="w-1/2">
               <div className="relative">
                 <input
+                  disabled={true}
                   type="text"
-                  name="customer_age"
-                  id="customer_age"
+                  name="age"
+                  id="age"
                   onChange={handleInputsChange}
-                  value={userData["customer_age" || ""]}
+                  value={userData["age" || ""]}
                   className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-1.5 focus:outline-none placeholder:text-xs"
                   placeholder="xx"
                 />
                 <label
-                  htmlFor="customer_age"
+                  htmlFor="age"
                   className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
                 >
                   Age
@@ -329,20 +373,22 @@ const PersonalDetails = ({
         </div>
         <div className="w-full sm:w-1/3 py-1 lg:py-0">
           <div className="relative">
-            <input
-              type="text"
-              name="customer_gender"
-              id="customer_gender"
+            <select
+              name="gender"
+              id="gender"
               onChange={handleInputsChange}
-              value={userData["customer_gender" || ""]}
-              className="border border-gray-300 text-gray-900 text-sm rounded-lg block w-full min-w-32 p-1.5 focus:outline-none placeholder:text-xs"
-              placeholder="Enter Your Gender"
-            />
+              value={userData["gender" || ""]}
+              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 px-2.5 py-2 focus:outline-none placeholder:text-xs"
+            >
+              {/* <option value="">Reducing / Level</option> */}
+              <option value="M">Male</option>
+              <option value="F">Female</option>
+            </select>
             <label
-              htmlFor="customer_gender"
+              htmlFor="loan_cover"
               className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
             >
-              Gender*
+              Gender
             </label>
           </div>
         </div>
@@ -410,36 +456,15 @@ const PersonalDetails = ({
         <div className="w-full sm:w-1/3 py-1 lg:py-0">
           <div className="relative">
             <select
-              name="product_type"
-              id="product_type"
-              onChange={handleInputsChange}
-              value={userData["product_type" || ""]}
-              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
-            >
-              <option value="">Select Your Product Type</option>
-              <option value="Term">Term</option>
-              <option value="Home">Home</option>
-            </select>
-            <label
-              htmlFor="product_type"
-              className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
-            >
-              Product Type
-            </label>
-          </div>
-        </div>
-        <div className="w-full sm:w-1/3 py-1 lg:py-0">
-          <div className="relative">
-            <select
               name="insurer"
               id="insurer"
               onChange={handleInputsChange}
               value={userData["insurer" || ""]}
-              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
+              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 px-2.5 py-2 focus:outline-none placeholder:text-xs"
             >
-              <option value="">Select Your Insurer</option>
-              <option value="Pramerica">Pramerica</option>
-              <option value="Balic">Balic</option>
+              {/* <option value="">Select Your Insurer</option> */}
+              <option value="pramerica">Pramerica</option>
+              <option value="balic">Balic</option>
             </select>
             <label
               htmlFor="insurer"
@@ -450,7 +475,7 @@ const PersonalDetails = ({
           </div>
         </div>
         <div className="w-full sm:w-1/3 py-1 lg:py-0">
-          <div className="relative">
+          {/* <div className="relative">
             <select
               name="mph_location"
               id="mph_location"
@@ -471,12 +496,38 @@ const PersonalDetails = ({
             >
               MPH Location*
             </label>
-          </div>
+          </div> */}
         </div>
+        <div className="w-full sm:w-1/3 py-1 lg:py-0">
+          {/* <div className="relative">
+            <select
+              name="product_type"
+              id="product_type"
+              onChange={handleInputsChange}
+              value={userData["product_type" || ""]}
+              className="bg-white border border-gray-300 text-gray-900 text-xs rounded-lg block w-full min-w-32 p-2.5 focus:outline-none placeholder:text-xs"
+            >
+              <option value="">Select Your Product Type</option>
+              <option value="Term">Term</option>
+              <option value="Home">Home</option>
+            </select>
+            <label
+              htmlFor="product_type"
+              className="absolute px-1 text-m-black duration-300 transform -translate-y-4 scale-75 top-1 left-2 z-10 origin-[0] bg-white"
+            >
+              Product Type
+            </label>
+          </div> */}
+        </div>
+      </div>
+      <div>
+        <FormError message={error} />
+        <FormSuccess message={success} />
       </div>
       {!fillFormClicked && (
         <div className="py-1 flex flex-col sm:flex-row gap-3">
           <button
+            disabled={isPending}
             className="bg-m-orange text-center rounded-md text-white px-2 py-1 text-sm"
             onClick={() => {
               handleClaculate();
@@ -486,7 +537,7 @@ const PersonalDetails = ({
           </button>
           <button
             className={`border border-m-orange text-center rounded-md text-m-orange px-2 py-1 text-sm disabled:cursor-not-allowed disabled:opacity-50`}
-            disabled={!calculateClicked}
+            disabled={!calculateClicked || isPending}
             onClick={() => {
               handleFillForm();
               // alert("under Development :)");
