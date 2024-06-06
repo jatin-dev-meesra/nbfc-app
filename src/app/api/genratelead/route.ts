@@ -23,11 +23,11 @@ export async function POST(req: any) {
       formdata.append("case_loan_number", body?.formdata.loan_number);
       formdata.append("case_cus_fname", body?.formdata.customer_fname);
       formdata.append("case_cus_lname", body?.formdata.customer_lname);
-      formdata.append("case_cus_dob", body?.formdata.customer_dob);
-      formdata.append("case_cus_age", body?.formdata.customer_age);
+      formdata.append("case_cus_dob", body?.formdata.dob);
+      formdata.append("case_cus_age", body?.formdata.age);
       formdata.append("case_cus_email", body?.formdata.customer_email);
       formdata.append("case_cus_mobile", body?.formdata.customer_mobile);
-      formdata.append("case_cus_gender", body?.formdata.customer_gender);
+      formdata.append("case_cus_gender", body?.formdata.gender);
       formdata.append("case_pincode", body?.formdata.customer_pincode);
       formdata.append("case_area", body?.formdata.customer_area);
       formdata.append("case_city", body?.formdata.customer_city);

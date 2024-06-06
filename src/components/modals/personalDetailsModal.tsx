@@ -3,15 +3,19 @@ import { useSearchParams, usePathname } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import Nominee from "../generateLeadSteps/nominee";
+import ShowNominee from "../generateLeadSteps/show-nominee";
 
 function PersonalDetailsModal() {
   const searchParams = useSearchParams();
   const testModal = searchParams.get("personal_details_modal");
   const pathname = usePathname();
   let userData: any = null;
+  let nomineeData: any = null;
   if (typeof window !== "undefined") {
     userData = localStorage.getItem("userData") || null;
     userData = JSON.parse(userData);
+    nomineeData = localStorage.getItem("nomineeData") || null;
+    nomineeData = JSON.parse(nomineeData);
   }
   return (
     <>
@@ -511,7 +515,10 @@ function PersonalDetailsModal() {
                       </div>
                       {/* Nominee Details */}
                       <>
-                        <Nominee />
+                        {/* <Nominee /> */}
+                        <ShowNominee
+                          nomineeData={nomineeData ? nomineeData : []}
+                        />
                       </>
                     </div>
                   )}

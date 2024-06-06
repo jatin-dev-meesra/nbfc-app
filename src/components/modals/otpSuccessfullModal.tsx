@@ -14,6 +14,15 @@ function OtpSuccessfullModal() {
   const handleProceed = async () => {
     // router.reload();
     // router.push("/generatelead");
+    if (typeof window !== "undefined") {
+      // Check if running in the browser
+      try {
+        localStorage.removeItem("nomineeData");
+        localStorage.removeItem("userData");
+      } catch (error) {
+        console.error("Error storing state in localStorage:", error);
+      }
+    }
 
     window.location.href = "/generatelead";
   };
