@@ -11,9 +11,9 @@ export const genratePayment = async () => {
     myHeaders.append("x-customerid", "hdfcmaster");
 
     const raw = JSON.stringify({
-      order_id: "00022",
+      order_id: "00023",
       amount: "01.0",
-      customer_id: "0022",
+      customer_id: "0023",
       customer_email: "jatin@meesra.com",
       customer_phone: "7703913871",
       payment_page_client_id: "hdfcmaster",
